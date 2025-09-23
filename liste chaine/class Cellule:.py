@@ -37,9 +37,9 @@ class Liste_chainee:
             return
         else:
             self.debut = self.debut.successeur
-    self.longueur -= 1
+        self.longueur -= 1
 
-     def sup_cellule_fin(self):
+    def sup_cellule_fin(self):
         if self.debut is None:
             return None
         if self.debut.successeur is None:
@@ -59,6 +59,8 @@ class Liste_chainee:
 
 
 
+
+
     def taille(self):
         if self.debut is None :
             return 0
@@ -69,7 +71,7 @@ class Liste_chainee:
             cc = cc.successeur
         return compteur
     
-    def recherche_cellule(self,index) :
+    def recherche_cellule_index(self,index) :
         if index < 0 or index > self.longueur:
             print("erreur index")
             return
