@@ -39,11 +39,20 @@ class Liste_chainee:
             self.debut = self.debut.successeur
     self.longueur -= 1
 
+     def sup_cellule_fin(self):
+        if self.debut is None:
+            return None
+        if self.debut.successeur is None:
+            self.debut = None
+            return None
+        cellule = self.debut
+        while cellule.successeur.successeur is not None:
+            cellule = cellule.successeur
 
+        cellule.successeur = None
 
-
-
-
+    def complexite(self) :
+        return
 
 
 
