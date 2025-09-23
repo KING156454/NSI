@@ -79,7 +79,19 @@ class Liste_chainee:
             cc = cc.successeur
         return cc.valeur
     
-    def
+    def recherche_cellule_valeur(self,valeur):
+        if self.debut == None :
+            return None
+        cc = self.debut
+        compteur = 0
+        while cc.valeur != valeur and cc.successeur is not None :
+            cc = cc.successeur
+            compteur += 1
+        if cc.valeur == valeur :
+            return compteur
+        else :
+            return None
+    
 liste = Liste_chainee()
 liste.ajoute_debut('a')
 liste.ajoute_debut('b')
