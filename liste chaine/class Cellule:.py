@@ -48,18 +48,17 @@ class Liste_chainee:
         cellule = self.debut
         while cellule.successeur.successeur is not None:
             cellule = cellule.successeur
-
         cellule.successeur = None
 
     def complexite(self) :
-        return
-
-
-
-
-
-
-
+        if self.debut is None :
+            return 0
+        compteur = 0
+        cc = self.debut
+        while cc is not None :
+            compteur += 1
+            cc = cc.successeur
+        return compteur
 
     def taille(self):
         if self.debut is None :
@@ -93,6 +92,60 @@ class Liste_chainee:
             return compteur
         else :
             return None
+    
+    def sup_liste_index(self,index):
+        if index < 0 or index >= self.longueur:
+            print("erreur index")
+            return
+        if index == 0 :
+            self.debut = self.debut.successeur
+            return
+        cc = self.debut
+        for i in range(index-1):
+            cc = cc.successeur
+        cc.successeur = cc.successeur.successeur
+        self.longueur -= 1
+    
+    def insertion_index(self,index,valeur):
+        if index < 0 or index > self.longueur:
+            print("erreur index")
+            return
+        if index == 0 :
+            self.ajoute_debut(valeur)
+            return
+        cc = self.debut
+        for i in range(index-1):
+            cc = cc.successeur
+        nouvelle_cellule = Cellule(valeur,cc.successeur)
+        cc.successeur = nouvelle_cellule
+        self.longueur += 1
+    
+    def sup_valeur(self,valeur):
+        if self.debut is None :
+            return
+        if self.debut.valeur == valeur :
+            self.debut = self.debut.successeur
+            return
+        cc = self.debut
+        while cc.successeur is not None and cc.successeur.valeur != valeur :
+            cc = cc.successeur
+        if cc.successeur is not None and cc.successeur.valeur == valeur :
+            cc.successeur = cc.successeur.successeur
+            self.longueur -= 1
+    
+    def sup_valeur_toutes(self,valeur):
+        if self.debut is None :
+            return
+        while self.debut is not None and self.debut.valeur == valeur :
+            self.debut = self.debut.successeur
+            self.longueur -= 1
+        cc = self.debut
+        while cc is not None and cc.successeur is not None :
+            if cc.successeur.valeur == valeur :
+                cc.successeur = cc.successeur.successeur
+                self.longueur -= 1
+            else :
+                cc = cc.successeur
     
 liste = Liste_chainee()
 liste.ajoute_debut('a')
