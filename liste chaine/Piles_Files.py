@@ -1,3 +1,5 @@
+from Liste_chaine import Liste_chainee
+
 class Pile:
     def __init__(self):
         self.donnees = Liste_chainee()       
@@ -26,4 +28,9 @@ class Pile:
             print("liste vide")
 
     def pop3(self):
+        return
+
+
+class File:
+    def __init__(self):
         return
