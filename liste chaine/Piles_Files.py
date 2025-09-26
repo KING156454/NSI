@@ -1,5 +1,3 @@
-from Liste_chaine import Liste_chainee
-
 class Pile:
     def __init__(self):
         self.donnees = Liste_chainee()       
@@ -13,8 +11,10 @@ class Pile:
         return False
 
     def top(self):
-        return self.donnees.debut.valeur
-        return None
+        if not self.vide():
+            return self.donnees.debut.valeur
+        else:
+            return None
     
     def pop(self):
         self.donnees.sup_cellule()
@@ -23,7 +23,7 @@ class Pile:
         if not self.vide():
             self.donnees.sup_cellule()
         else:
-            pritn("liste vide")
+            print("liste vide")
 
     def pop3(self):
         return
