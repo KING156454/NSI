@@ -30,10 +30,22 @@ class Pile:
     def pop3(self):
         return
 
-
 class File:
     def __init__(self):
-        return
-
-# test
-#t
+        self.donnees = Liste_chainee()
+        
+    def entrer(self, valeur):
+        self.donnees.ajoute_fin()
+        
+    def sortir(self):
+        if self.donnees.debut is None:
+            return None
+        valeur = self.donnes.debut.valeur
+        self.donnees.sup_valeur()
+        return valeur
+        
+    def vide(self):
+        if self.debut == None :
+            return True
+    
+    def taille(self)
