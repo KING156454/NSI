@@ -48,4 +48,10 @@ class File:
         if self.debut == None :
             return True
     
-    def taille(self)
+    def taille(self):
+        l = 0
+        while not pile.vide():
+            valeur = pile.pop():
+            l += 1
+        return l
+        
