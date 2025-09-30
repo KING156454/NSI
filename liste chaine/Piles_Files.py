@@ -19,7 +19,11 @@ class Pile:
             return None
     
     def pop(self):
+        if self.donnees.debut is None:
+            return
+        val = self.donnees.debut.valeur
         self.donnees.sup_debut()
+        return val
     
     def pop2(self):
         if not self.vide():
@@ -64,9 +68,10 @@ def taille2(pile):
     while not pile_aux.vide():
         pile.push(pile_aux.pop())
     return l
+
 pile = Pile()
 for i in range(10):
     pile.push(i)
 print(pile.donnees)
-print(taille(pile))
+print(taille2(pile))
 print(pile.donnees)
