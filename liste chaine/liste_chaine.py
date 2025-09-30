@@ -26,7 +26,7 @@ class Liste_chainee:
     def sup_debut(self):
         if self.debut is None:
             return None
-        self.debut = self.debut.succeseur
+        self.debut = self.debut.successeur
     
     def ajoute_fin(self,valeur):
         if self.debut == None :

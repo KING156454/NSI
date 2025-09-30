@@ -55,9 +55,10 @@ def taille(pile):
         l += 1
     return l
 
+def taille()
 pile = Pile()
 for i in range(10):
     pile.push(i)
-print(pile)
+print(pile.donnees)
 print(taille(pile))
-print(pile)
+print(pile.donnees)
