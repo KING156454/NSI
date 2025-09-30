@@ -47,11 +47,17 @@ class File:
     def vide(self):
         if self.debut == None :
             return True
-    
-    def taille(self):
-        l = 0
-        while not pile.vide():
-            valeur = pile.pop():
-            l += 1
-        return l
-        
+
+def taille(pile):
+    l = 0
+    while not pile.vide():
+        valeur = pile.pop()
+        l += 1
+    return l
+
+pile = Pile()
+for i in range(10):
+    pile.push(i)
+print(pile)
+print(taille(pile))
+print(pile)
