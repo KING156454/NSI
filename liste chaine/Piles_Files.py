@@ -55,7 +55,15 @@ def taille(pile):
         l += 1
     return l
 
-def taille()
+def taille2(pile):
+    l = 0
+    pile_aux = Pile()
+    while not pile.vide():
+        pile_aux.push(pile.pop())
+        l += 1
+    while not pile_aux.vide():
+        pile.push(pile_aux.pop())
+    return l
 pile = Pile()
 for i in range(10):
     pile.push(i)
