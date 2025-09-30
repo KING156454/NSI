@@ -22,6 +22,12 @@ class Liste_chainee:
             cellule_courante = cellule_courante.successeur
         return affichage
 
+
+    def sup_debut(self):
+        if self.debut is None:
+            return None
+        self.debut = self.debut.succeseur
+    
     def ajoute_fin(self,valeur):
         if self.debut == None :
             self.ajoute_debut(valeur)

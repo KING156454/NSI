@@ -1,4 +1,4 @@
-from Liste_chaine import Liste_chainee
+from liste_chaine import Liste_chainee
 
 class Pile:
     def __init__(self):
@@ -19,11 +19,11 @@ class Pile:
             return None
     
     def pop(self):
-        self.donnees.sup_cellule()
+        self.donnees.sup_debut()
     
     def pop2(self):
         if not self.vide():
-            self.donnees.sup_cellule()
+            self.donnees.sup_debut()
         else:
             print("liste vide")
 
