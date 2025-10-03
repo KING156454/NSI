@@ -69,9 +69,75 @@ def taille2(pile):
         pile.push(pile_aux.pop())
     return l
 
+def pre_el_pile():
+    if pile.vide():
+        return None
+    val = 0
+    while not pile.vide():
+        val = pile.pop()
+    return pile
+    
+def pre_el_pile2():
+    if pile.vide():
+        return None
+    val = 0
+    while not pile.vide():
+        val = pile.push(pile.pop())
+    while not pile_aux.vide():
+        pile.push(pile_aux.pop)
+    return val
+
+def plus_grand_pile():
+    if pile.vide():
+        return None
+    max = pile.pre_el_pile2()
+    while not pilee.vide():
+        val = pile.pop
+        if max < val:
+            max = val
+    return max
+
+def plus_grand_pile2():
+    if pile.vide():
+        return None
+    max = pile.pre_el_pile2()
+    while not pilee.vide():
+        val = pile.push(pile.pop())
+        if max < val:
+            max = val
+    while not pile_aux.vide():
+        pile.push(pile_aux.pop())
+    return max
+
+def tot_el_pile():
+    if pile.vide():
+        return None
+    tot = 0
+    while not pile.vide():
+        val = pile.pop
+        tot += val
+    return tot
+
+def tot_el_pile2():
+    if pile.vide():
+        return None
+    tot = 0
+    while not pile.vide():
+        val = pile.push(pile.pop())
+        tot += val
+    while not pile_aux.vide():
+        pile.push(pile_aux.pop())
+    return tot
+
+def renverse_pile():
+    return
+
 pile = Pile()
 for i in range(10):
     pile.push(i)
 print(pile.donnees)
 print(taille2(pile))
 print(pile.donnees)
+print(pre_el_pile())
+print(plus_grand_pile2())
+print(tot_el_pile2())
