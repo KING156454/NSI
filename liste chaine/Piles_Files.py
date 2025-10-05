@@ -39,18 +39,19 @@ class File:
         self.donnees = Liste_chainee()
         
     def entrer(self, valeur):
-        self.donnees.ajoute_fin()
+        self.donnees.ajoute_fin(valeur)
         
     def sortir(self):
         if self.donnees.debut is None:
             return None
-        valeur = self.donnes.debut.valeur
-        self.donnees.sup_valeur()
+        valeur = self.donnees.debut.valeur
+        self.donnees.sup_debut()
         return valeur
         
     def vide(self):
-        if self.debut == None :
+        if self.donnees.debut is None:
             return True
+        return False
 
 def taille(pile):
     l = 0
@@ -69,70 +70,134 @@ def taille2(pile):
         pile.push(pile_aux.pop())
     return l
 
-def pre_el_pile():
+def pre_el_pile(pile):
     if pile.vide():
         return None
-    val = 0
+    val = None
     while not pile.vide():
         val = pile.pop()
-    return pile
-    
-def pre_el_pile2():
-    if pile.vide():
-        return None
-    val = 0
-    while not pile.vide():
-        val = pile.push(pile.pop())
-    while not pile_aux.vide():
-        pile.push(pile_aux.pop)
     return val
 
-def plus_grand_pile():
+def pre_el_pile2(pile):
     if pile.vide():
         return None
-    max = pile.pre_el_pile2()
-    while not pilee.vide():
-        val = pile.pop
-        if max < val:
-            max = val
-    return max
-
-def plus_grand_pile2():
-    if pile.vide():
-        return None
-    max = pile.pre_el_pile2()
-    while not pilee.vide():
-        val = pile.push(pile.pop())
-        if max < val:
-            max = val
+    pile_aux = Pile()
+    val = None
+    while not pile.vide():
+        val = pile.pop()
+        pile_aux.push(val)
     while not pile_aux.vide():
         pile.push(pile_aux.pop())
-    return max
 
-def tot_el_pile():
+def plus_grand_pile(pile):
+    if pile.vide():
+        return None
+    pile_aux = Pile()
+    max_val = None
+    while not pile.vide():
+        val = pile.pop()
+        if max_val is None or val > max_val:
+            max_val = val
+        pile_aux.push(val)
+        
+def plus_grand_pile2(pile):
+    if pile.vide():
+        return None
+    pile_aux = Pile()
+    max_val = None
+    while not pile.vide():
+        val = pile.pop()
+        if max_val is None or val > max_val:
+            max_val = val
+        pile_aux.push(val)
+    while not pile_aux.vide():
+        pile.push(pile_aux.pop())
+
+def tot_el_pile(pile):
     if pile.vide():
         return None
     tot = 0
+    pile_aux = Pile()
     while not pile.vide():
-        val = pile.pop
+        val = pile.pop()
         tot += val
-    return tot
-
-def tot_el_pile2():
+        pile_aux.push(val)
+        
+def tot_el_pile2(pile):
     if pile.vide():
         return None
     tot = 0
+    pile_aux = Pile()
     while not pile.vide():
-        val = pile.push(pile.pop())
+        val = pile.pop()
         tot += val
+        pile_aux.push(val)
     while not pile_aux.vide():
         pile.push(pile_aux.pop())
-    return tot
 
-def renverse_pile():
-    return
+def renverse_pile(pile):
+    if pile.vide():
+        return None
+    pile_aux = Pile()
+    while not pile.vide():
+        pile_aux.push(pile.pop())
+    return pile_aux
 
+def echange_pile(pile1, pile2):
+    if pile1.vide() or pile2.vide():
+        return None
+    pile_aux = Pile()
+    while not pile1.vide():
+        pile_aux.push(pile1.pop())
+    while not pile2.vide():
+        pile1.push(pile2.pop())
+    while not pile_aux.vide():
+        pile2.push(pile_aux.pop())
+    return pile1, pile2
+
+def dernier_el_entre_file():
+    file = File()
+    for i in range(10):
+        file.entrer(i)
+    val = None
+    while not file.vide():
+        val = file.sortir()
+    return val
+
+def dernier_el_entre_file2():
+    file = File()
+    for i in range(10):
+        file.entrer(i)
+    file_aux = File()
+    val = None
+    while not file.vide():
+        val = file.sortir()
+        file_aux.entrer(val)
+    while not file_aux.vide():
+        file.entrer(file_aux.sortir())
+    return val
+
+def taille_file(file):
+    l = 0
+    while not file.vide():
+        file.sortir()
+        l += 1
+    return l
+
+def taille_file2(file):
+    l = 0
+    file_aux = File()
+    while not file.vide():
+        val = file.sortir()
+        file_aux.entrer(val)
+        l += 1
+    while not file_aux.vide():
+        file.entrer(file_aux.sortir())
+    return l
+
+def 
 pile = Pile()
+pile_aux = Pile()
 for i in range(10):
     pile.push(i)
 print(pile.donnees)
