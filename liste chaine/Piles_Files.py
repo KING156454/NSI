@@ -195,7 +195,113 @@ def taille_file2(file):
         file.entrer(file_aux.sortir())
     return l
 
-def 
+def plus_petit_file(F):
+    if F.vide():
+        return None
+    mini = F.sortir()
+    while not F.vide():
+        x = F.sortir()
+        if x < mini:
+            mini = x
+    return mini
+
+def plus_petit_file2(F):
+    if F.vide():
+        return None
+    temp = File()
+    mini = F.sortir()
+    temp.entrer(mini)
+    while not F.vide():
+        x = F.sortir()
+        if x < mini:
+            mini = x
+        temp.entrer(x)
+    while not temp.vide():
+        F.entrer(temp.sortir())
+    return mini
+
+def renverser_file(F):
+    P = Pile()
+    while not F.vide():
+        P.push(F.sortir())
+    while not P.vide():
+        F.entrer(P.pop())
+
+def moyenne_file(F):
+    if F.vide():
+        return 0
+    somme = 0
+    n = 0
+    while not F.vide():
+        x = F.sortir()
+        somme += x
+        n += 1
+    return somme / n
+
+def moyenne_file2(F):
+    if F.vide():
+        return 0
+    temp = File()
+    somme = 0
+    n = 0
+    while not F.vide():
+        x = F.sortir()
+        somme += x
+        n += 1
+        temp.entrer(x)
+    while not temp.vide():
+        F.entrer(temp.sortir())
+    return somme / n
+
+def echanger_files(F1, F2):
+    temp = File()
+    while not F1.vide():
+        temp.entrer(F1.sortir())
+    while not F2.vide():
+        F1.entrer(F2.sortir())
+    while not temp.vide():
+        F2.entrer(temp.sortir())
+
+def echanger_pile_file(P, F):
+    tempP = Pile()
+    tempF = File()
+    while not P.vide():
+        tempF.entrer(P.pop())
+    while not F.vide():
+        tempP.push(F.sortir())
+    while not tempP.vide():
+        P.push(tempP.pop())
+    while not tempF.vide():
+        F.entrer(tempF.sortir())
+
+def elimine_pairs_pile(P):
+    temp = Pile()
+    while not P.vide():
+        x = P.pop()
+        if x % 2 != 0:
+            temp.push(x)
+    while not temp.vide():
+        P.push(temp.pop())
+    
+def doubler_file(F):
+    temp = File()
+    while not F.vide():
+        x = F.sortir()
+        temp.entrer(2 * x)
+    while not temp.vide():
+        F.entrer(temp.sortir())
+
+def elimine_doublons_consecutifs_pile(P):
+    temp = Pile()
+    precedent = None
+    while not P.vide():
+        x = P.pop()
+        if x != precedent:
+            temp.push(x)
+        precedent = x
+    while not temp.vide():
+        P.push(temp.pop())
+
 pile = Pile()
 pile_aux = Pile()
 for i in range(10):
