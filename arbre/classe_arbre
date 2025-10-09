@@ -3,17 +3,17 @@ from graphviz import Graph
 class Arbre_binaire:
     def __init__(self, nom):
         self.nom = nom
-        self.fg = None
-        self.fd = None
+        self.fils_gauche = None
+        self.fils_droit = None
   
     def liste_aretes(self):
         liste = []
-        if self.fg != None:
-            liste.append((str(self.nom), str(self.fg.nom)))
-            liste = liste + self.fg.liste_aretes()
-        if self.fd != None:
-            liste.append((str(self.nom), str(self.fd.nom)))
-            liste = liste + self.fd.liste_aretes()
+        if self.fils_gauche != None:
+            liste.append((str(self.nom), str(self.fils_gauche.nom)))
+            liste = liste + self.fils_gauche.liste_aretes()
+        if self.fils_droit != None:
+            liste.append((str(self.nom), str(self.fils_droit.nom)))
+            liste = liste + self.fils_droit.liste_aretes()
         return liste
 
     def affiche(self):
@@ -28,22 +28,12 @@ class Arbre_binaire:
     def set_fils_droit(self, arbre):
         self.fils_droit = arbre
         
-root = Arbre_binaire('root')
-a = Arbre_binaire('a')
-b = Arbre_binaire('b')
-c = Arbre_binaire('c')
-d = Arbre_binaire('d')
-e = Arbre_binaire('e')
-f = Arbre_binaire('f')
-g = Arbre_binaire('g')
-root.set_fils_gauche(a)
-a.set_fils_gauche(c)
-a.set_fils_droit(d)
-root.set_fils_droit(b)
-b.set_fils_gauche(e)
-b.set_fils_droit(f)
-e.set_fils_gauche(g)
-root.affiche()
+arbre = Arbre_binaire('a')
+fg = Arbre_binaire("b")
+fd = Arbre_binaire("c")
+arbre.set_fils_gauche(fg)
+arbre.set_fils_droit(fd)
+arbre.affiche()
 
 def arbre2(n):
     if n<0:
@@ -57,14 +47,14 @@ def arbre2(n):
     return arbre
 
 def taille(arbre):
-    if arbre.fg is None:
+    if arbre.fils_gauche is None:
         tg = 0
     else :
-        tg = taille(arbre.fg)
-    if arbre.fd is None :
+        tg = taille(arbre.fils_gauche)
+    if arbre.fils_droit is None :
         td = 0
     else :
-        td = taille(arbre.fd)
+        td = taille(arbre.fils_droit)
     return tg + td +1
 
-print(taille(root))
+print(taille(arbre))
