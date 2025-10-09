@@ -28,24 +28,24 @@ class Arbre_binaire:
     def set_fils_droit(self, arbre):
         self.fils_droit = arbre
         
-    #root = Arbre_binaire('root')
-    #a = Arbre_binaire('a')
-    #b = Arbre_binaire('b')
-    #c = Arbre_binaire('c')
-    #d = Arbre_binaire('d')
-    #e = Arbre_binaire('e')
-    #f = Arbre_binaire('f')
-    #g = Arbre_binaire('g')
-    #root.set_fils_gauche(a)
-    #a.set_fils_gauche(c)
-    #a.set_fils_droit(d)
-    #root.set_fils_droit(b)
-    #b.set_fils_gauche(e)
-    ##b.set_fils_droit(f)
-    #e.set_fils_gauche(g)
-    #root.affiche()
+root = Arbre_binaire('root')
+a = Arbre_binaire('a')
+b = Arbre_binaire('b')
+c = Arbre_binaire('c')
+d = Arbre_binaire('d')
+e = Arbre_binaire('e')
+f = Arbre_binaire('f')
+g = Arbre_binaire('g')
+root.set_fils_gauche(a)
+a.set_fils_gauche(c)
+a.set_fils_droit(d)
+root.set_fils_droit(b)
+b.set_fils_gauche(e)
+b.set_fils_droit(f)
+e.set_fils_gauche(g)
+root.affiche()
 
-def arbre2(n):t
+def arbre2(n):
     if n<0:
         return None
     abre = Arbre_binaire(0)
@@ -61,8 +61,10 @@ def taille(arbre):
         tg = 0
     else :
         tg = taille(arbre.fg)
-    if abre.fd is None :
+    if arbre.fd is None :
         td = 0
     else :
         td = taille(arbre.fd)
     return tg + td +1
+
+print(taille(root))
