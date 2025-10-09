@@ -3,17 +3,17 @@ from graphviz import Graph
 class Arbre_binaire:
     def __init__(self, nom):
         self.nom = nom
-        self.fils_gauche = None
-        self.fils_droit = None
+        self.fg = None
+        self.fd = None
   
     def liste_aretes(self):
         liste = []
-        if self.fils_gauche != None:
-            liste.append((str(self.nom), str(self.fils_gauche.nom)))
-            liste = liste + self.fils_gauche.liste_aretes()
-        if self.fils_droit != None:
-            liste.append((str(self.nom), str(self.fils_droit.nom)))
-            liste = liste + self.fils_droit.liste_aretes()
+        if self.fg != None:
+            liste.append((str(self.nom), str(self.fg.nom)))
+            liste = liste + self.fg.liste_aretes()
+        if self.fd != None:
+            liste.append((str(self.nom), str(self.fd.nom)))
+            liste = liste + self.fd.liste_aretes()
         return liste
 
     def affiche(self):
@@ -45,7 +45,7 @@ class Arbre_binaire:
     #e.set_fils_gauche(g)
     #root.affiche()
 
-def arbre2(n):
+def arbre2(n):t
     if n<0:
         return None
     abre = Arbre_binaire(0)
@@ -55,3 +55,14 @@ def arbre2(n):
         curseur.fg = fg
         curseur = curseur.fg
     return arbre
+
+def taille(arbre):
+    if arbre.fg is None:
+        tg = 0
+    else :
+        tg = taille(arbre.fg)
+    if abre.fd is None :
+        td = 0
+    else :
+        td = taille(arbre.fd)
+    return tg + td +1
