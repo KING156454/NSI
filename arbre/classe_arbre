@@ -33,7 +33,7 @@ fg = Arbre_binaire("b")
 fd = Arbre_binaire("c")
 arbre.set_fils_gauche(fg)
 arbre.set_fils_droit(fd)
-arbre.affiche()
+#arbre.affiche()
 
 def arbre2(n):
     if n<0:
@@ -41,10 +41,23 @@ def arbre2(n):
     abre = Arbre_binaire(0)
     curseur = arbre
     for i in range(1, n+1):
-        fg = Arbre_binaire(i)
-        curseur.fg = fg
-        curseur = curseur.fg
+        fils_gauche = Arbre_binaire(i)
+        curseur.fils_gauche = fils_gauche
+        curseur = curseur.fils_gauche
     return arbre
+
+def arbre3(n):
+    if n<0 :
+        return None
+    arbre = Arbre_binaire(0)
+    curseur = arbre
+    for i in range(1, n+1):
+        fils = Arbre_binaire(i)
+        curseur.fils_gauche = fils_gauche
+        curseur = curseur.fils_droit
+        curseur.fils_droit = fils_droit
+        curseur = curseur.fils_gauche
+
 
 def taille(arbre):
     if arbre.fils_gauche is None:
@@ -57,4 +70,4 @@ def taille(arbre):
         td = taille(arbre.fils_droit)
     return tg + td +1
 
-print(taille(arbre))
+arbre3(10)
