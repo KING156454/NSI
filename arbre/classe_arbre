@@ -53,10 +53,14 @@ def arbre3(n):
     curseur = arbre
     for i in range(1, n+1):
         fils = Arbre_binaire(i)
-        curseur.fils_gauche = fils_gauche
-        curseur = curseur.fils_droit
-        curseur.fils_droit = fils_droit
-        curseur = curseur.fils_gauche
+        if i % 2 == 0:
+            curseur.set_fils_droit(fils)
+            curseur = curseur.fils_droit
+        else:
+            curseur.set_fils_gauche(fils)
+            curseur = curseur.fils_gauche
+    return affiche(arbre)
+        
 
 
 def taille(arbre):
