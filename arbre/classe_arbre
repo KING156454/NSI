@@ -59,7 +59,7 @@ def arbre3(n):
         else:
             curseur.set_fils_gauche(fils)
             curseur = curseur.fils_gauche
-    return affiche(arbre)
+    return arbre.affiche()
         
 
 
