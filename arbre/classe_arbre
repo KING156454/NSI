@@ -62,6 +62,17 @@ def arbre3(n):
     return arbre.affiche()
         
 
+def hauteur(arbre):
+    if arbre.fils_gauche is None:
+        hg = 0
+    else :
+        hg = hauteur(arbre.fils_gauche)
+    if arbre.fils_droit is None :
+        hd = 0
+    else :
+        hd = hauteur(arbre.fils_droit)
+    return max(hg, hd) +1
+
 
 def taille(arbre):
     if arbre.fils_gauche is None:
@@ -75,3 +86,35 @@ def taille(arbre):
     return tg + td +1
 
 arbre3(10)
+
+def parcours_en_largeur(arbre):
+    liste = [arbre]
+    i = 0
+    while i < len(liste):
+        noeud = liste[i]
+        if noeud.fils_gauche is not None:
+            liste.append(noeud.fils_gauche)
+        if noeud.fils_droit is not None:
+            liste.append(noeud.fils_droit)
+        i += 1
+    return [noeud.nom for noeud in liste]
+
+def parcours_en_profondeur(arbre):
+    liste = []
+    def parcours_prefixe(noeud):
+        if noeud is not None:
+            liste.append(noeud.nom)
+            parcours_prefixe(noeud.fils_gauche)
+            parcours_prefixe(noeud.fils_droit)
+    def parcours_infixe(noeud):
+        if noeud is not None:
+            parcours_infixe(noeud.fils_gauche)
+            liste.append(noeud.nom)
+            parcours_infixe(noeud.fils_droit)
+    def parcours_suffixe(noeud):
+        if noeud is not None:
+            parcours_suffixe(noeud.fils_gauche)
+            parcours_suffixe(noeud.fils_droit)
+            liste.append(noeud.nom)
+    parcours_prefixe(arbre)
+    return liste
