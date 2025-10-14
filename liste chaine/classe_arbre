@@ -109,5 +109,4 @@ fd = Arbre_binaire("c")
 arbre.set_fils_gauche(fg)
 arbre.set_fils_droit(fd)
 #arbre.affiche()
-
-print(parcours_en_largeur(arbre))
+print(Arbre_binaire.parcours_en_largeur(arbre))

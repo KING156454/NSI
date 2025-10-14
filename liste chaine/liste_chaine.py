@@ -152,11 +152,3 @@ class Liste_chainee:
                 self.longueur -= 1
             else :
                 cc = cc.successeur
-    
-liste = Liste_chainee()
-liste.ajoute_debut('a')
-liste.ajoute_debut('b')
-print(liste)
-print(liste.debut.valeur)
-print(liste.debut.successeur)
-print(liste.debut.successeur.valeur)
