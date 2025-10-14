@@ -1,4 +1,5 @@
 from graphviz import Graph
+from Piles_Files import *
 
 class Arbre_binaire:
     def __init__(self, nom):
@@ -87,16 +88,7 @@ def hauteur(arbre):
 
 
 def parcours_en_largeur(arbre):
-    liste = [arbre]
-    i = 0
-    while i < len(liste):
-        noeud = liste[i]
-        if noeud.fils_gauche is not None:
-            liste.append(noeud.fils_gauche)
-        if noeud.fils_droit is not None:
-            liste.append(noeud.fils_droit)
-        i += 1
-    return [noeud.nom for noeud in liste]
+    
 
 def parcours_en_profondeur(arbre):
     liste = []
@@ -117,6 +109,7 @@ def parcours_en_profondeur(arbre):
             liste.append(noeud.nom)
     parcours_prefixe(arbre)
     return liste
+
 print(parcours_en_largeur(arbre))
 print(parcours_en_profondeur(arbre))
 print(hauteur(arbre))
