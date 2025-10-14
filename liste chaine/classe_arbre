@@ -90,10 +90,9 @@ def parcours_en_largeur(arbre):
         print(noeud.nom)
         if noeud.fils_gauche is not None :
             file.entrer(noeud.fils_gauche)
-            sommets.append(noeud.nom)
         if noeud.fils_droit is not None :
             file.entrer(noeud.fils_droit)
-            sommets.append(noeud.nom)
+        sommets.append(noeud.nom)
     return sommets
         
 

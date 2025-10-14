@@ -2,8 +2,7 @@ class Cellule:
     def __init__(self, valeur, successeur):
         'Initialise la cellule '
         self.valeur = valeur
-        self.successeur = successeur  # Un autre objet du type Cellule
-    
+        self.successeur = successeur  
 
 class Liste_chainee:
     def __init__(self):
@@ -11,8 +10,8 @@ class Liste_chainee:
         self.longueur = 0
         
     def ajoute_debut(self, valeur):
-        cell = Cellule(valeur, self.debut) #Le successeur de cell est l'actuel selfdebut
-        self.debut = cell    #self.debut est remplacée par cell
+        cell = Cellule(valeur, self.debut) 
+        self.debut = cell    
     
     def __repr__(self):
         affichage = ""
@@ -30,13 +29,14 @@ class Liste_chainee:
             self.debut = self.debut.successeur
     
     def ajoute_fin(self,valeur):
-        if self.debut == None :
+        if self.debut is None :
             self.ajoute_debut(valeur)
-        Cellule_courrante = self.debut
-        while Cellule_courrante.successeur != None :
-            Cellule_courrante = Cellule_courrante.successeur
-        nouvelle_cellule = Cellule(valeur, None)
-        Cellule_courrante.successeur = nouvelle_cellule
+        else :
+            Cellule_courrante = self.debut
+            while Cellule_courrante.successeur is not None :
+                Cellule_courrante = Cellule_courrante.successeur
+            nouvelle_cellule = Cellule(valeur, None)
+            Cellule_courrante.successeur = nouvelle_cellule
         self.longueur += 1
 
     def sup_cellule(self,nom):
@@ -153,3 +153,9 @@ class Liste_chainee:
                 self.longueur -= 1
             else :
                 cc = cc.successeur
+
+if __name__ == "__main__" :
+    liste = Liste_chainee()
+    for i in range(5):
+        liste.ajoute_fin(i)
+    print(liste)
