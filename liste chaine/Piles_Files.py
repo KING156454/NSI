@@ -302,13 +302,3 @@ def elimine_doublons_consecutifs_pile(P):
     while not temp.vide():
         P.push(temp.pop())
 
-pile = Pile()
-pile_aux = Pile()
-for i in range(10):
-    pile.push(i)
-print(pile.donnees)
-print(taille2(pile))
-print(pile.donnees)
-print(pre_el_pile())
-print(plus_grand_pile2())
-print(tot_el_pile2())
