@@ -99,7 +99,7 @@ def parcours_en_largeur(arbre):
 def parcours_en_profondeur_prefixe(arbre):
     liste_sommets = []
     liste_sommets.append(arbre)
-
+    
 
 
     
