@@ -1,4 +1,15 @@
 graph {
-	a -- b
-	a -- c
+	l -- h
+	h -- d
+	d -- b
+	d -- e
+	h -- k
+	k -- i
+	l -- s
+	s -- o
+	o -- m
+	o -- r
+	s -- v
+	v -- u
+	v -- z
 }

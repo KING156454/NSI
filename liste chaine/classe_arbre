@@ -99,6 +99,7 @@ def parcours_en_largeur(arbre):
 def parcours_en_profondeur_prefixe(arbre):
     liste_sommets = []
     liste_sommets.append(arbre)
+    pass
     
 
 
@@ -106,6 +107,7 @@ def parcours_en_profondeur_prefixe(arbre):
 
 l = Arbre_binaire('l')
 h = Arbre_binaire("h")
+d = Arbre_binaire("d")
 k = Arbre_binaire("k")
 b = Arbre_binaire("b")
 e = Arbre_binaire("e")
@@ -130,5 +132,5 @@ o.set_fils_gauche(m)
 o.set_fils_droit(r)
 v.set_fils_gauche(u)
 v.set_fils_droit(z)
-arbre.affiche()
-print(parcours_en_largeur(arbre))
+l.affiche()
+
