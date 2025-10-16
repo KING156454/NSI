@@ -113,8 +113,35 @@ def parcours_infixe(arbre):
 def parcours_suffixe(arbre):
     pass
 
+def donne_dans_arbre(arbre, val):
+    if arbre.nom == val :
+        return True
+    if val < arbre.nom : 
+        if arbre.fils_gauche is None:
+            return False
+        else :
+            return donne_dans_arbre(arbre.fils_gauche, val)
+    else :
+        if arbre.fils_droit is None:
+            return False
+        else :
+            return donne_dans_arbre(arbre.fils_droit, val)
 
-    
+        
+def ajoute(arbre, val):
+    if arbre.nom == val :
+        return
+    else :
+        if val < arbre.nom :
+            if arbre.fils_gauche is None :
+                arbre.set_fils_gauche(Arbre_binaire(val))
+            else :
+                ajoute(arbre.fils_gauche, val)
+        else :
+            if arbre.fils_droit is None :
+                arbre.set_fils_droit(Arbre_binaire(val))
+            else :
+                ajoute(arbre.fils_droit, val)
 
 l = Arbre_binaire('l')
 h = Arbre_binaire("h")
@@ -143,4 +170,7 @@ o.set_fils_gauche(m)
 o.set_fils_droit(r)
 v.set_fils_gauche(u)
 v.set_fils_droit(z)
+#l.affiche()
+
+ajoute(l, "a")
 l.affiche()
