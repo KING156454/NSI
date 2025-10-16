@@ -95,12 +95,23 @@ def parcours_en_largeur(arbre):
         sommets.append(noeud.nom)
     return sommets
         
-
-def parcours_en_profondeur_prefixe(arbre):
-    liste_sommets = []
-    liste_sommets.append(arbre)
+def parcours_prefixe(arbre):
     pass
-    
+
+
+def parcours_infixe(arbre):
+    if arbre.fils_gauche is not None :
+        resultat = parcours_infixe(arbre.fils_gauche)
+    else :
+        resultat = []
+    resultat.append(arbre.nom)
+    if arbre.fils_droit is not None :
+        resultat += parcours_infixe.fils_droit
+    return resultat
+
+
+def parcours_suffixe(arbre):
+    pass
 
 
     
@@ -133,4 +144,3 @@ o.set_fils_droit(r)
 v.set_fils_gauche(u)
 v.set_fils_droit(z)
 l.affiche()
-
