@@ -1,0 +1,218 @@
+import pygame
+import random
+import heapq
+
+# -------------------------
+# CONFIGURATION
+# -------------------------
+pygame.init()
+CELL = 20
+GRID_W, GRID_H = 30, 28
+TOP_BAR = 50
+
+WIDTH = GRID_W * CELL
+HEIGHT = GRID_H * CELL + TOP_BAR
+
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+clock = pygame.time.Clock()
+font = pygame.font.SysFont("Arial", 28)
+
+# -------------------------
+# TEXTURES
+# -------------------------
+apple_img = pygame.image.load("apple.png")
+apple_img = pygame.transform.scale(apple_img, (CELL, CELL))
+
+head_img = pygame.image.load("snake_head.png")
+head_img = pygame.transform.scale(head_img, (CELL, CELL))
+
+# -------------------------
+# SNAKE DATA
+# -------------------------
+snake = [(10, 10)]
+score = 0
+
+
+# -------------------------
+# FRUITS
+# -------------------------
+fruits = []  # d’abord créer la liste vide
+
+def random_fruit():
+    while True:
+        pos = (random.randint(0, GRID_W-1), random.randint(0, GRID_H-1))
+        if pos not in snake and pos not in fruits:
+            return pos
+
+# maintenant générer les 5 fruits
+fruits = [random_fruit() for _ in range(5)]
+
+# -------------------------
+# UTILITAIRES
+# -------------------------
+def is_inside_map(pos):
+    x, y = pos
+    return 0 <= x < GRID_W and 0 <= y < GRID_H
+
+def neighbors(x, y):
+    return [(x+1, y), (x-1, y), (x, y+1), (x, y-1)]
+
+def draw():
+    screen.fill((30, 30, 30))
+    pygame.draw.rect(screen, (10,10,10), (0,0,WIDTH,TOP_BAR))
+    screen.blit(font.render(f"Score : {score}", True, (255,255,255)), (10,10))
+    pygame.draw.rect(screen, (255,255,255), (0,TOP_BAR,WIDTH,HEIGHT-TOP_BAR), 3)
+
+    # Dessin fruits
+    for f in fruits:
+        screen.blit(apple_img, (f[0]*CELL, f[1]*CELL+TOP_BAR))
+
+    # Dessin serpent
+    for i, s in enumerate(snake):
+        x, y = s[0]*CELL, s[1]*CELL + TOP_BAR
+        if i == 0:
+            screen.blit(head_img, (x, y))
+        else:
+            pygame.draw.rect(screen, (0,200,0), (x, y, CELL, CELL))
+
+    pygame.display.flip()
+
+# -------------------------
+# ASTAR PATHFINDING
+# -------------------------
+def astar(start, goal, forbidden):
+    frontier = []
+    heapq.heappush(frontier, (0, start))
+    came = {start: None}
+    cost = {start: 0}
+
+    while frontier:
+        _, cur = heapq.heappop(frontier)
+        if cur == goal:
+            # reconstruire chemin
+            path = []
+            c = cur
+            while c != start:
+                path.append(c)
+                c = came[c]
+            path.reverse()
+            return path
+        for nx, ny in neighbors(*cur):
+            if not is_inside_map((nx, ny)) or (nx, ny) in forbidden:
+                continue
+            new_cost = cost[cur] + 1
+            if (nx, ny) not in cost or new_cost < cost[(nx, ny)]:
+                cost[(nx, ny)] = new_cost
+                priority = new_cost + abs(nx-goal[0])+abs(ny-goal[1])
+                heapq.heappush(frontier, (priority, (nx, ny)))
+                came[(nx, ny)] = cur
+    return None
+
+# -------------------------
+# CYCLE HAMILTONIEN GAUCHE→DROITE
+# -------------------------
+def generate_hamilton_cycle_left_to_right():
+    cycle = []
+    # On réserve la dernière colonne (ou n'importe laquelle) pour remonter
+    safe_col_for_return = GRID_W - 1
+
+    for y in range(GRID_H):
+        if y % 2 == 0:
+            # Ligne paire : gauche → droite
+            for x in range(GRID_W):
+                cycle.append((x, y))
+        else:
+            # Ligne impaire : droite → gauche
+            for x in reversed(range(GRID_W)):
+                cycle.append((x, y))
+    
+    # Ajouter la colonne de remontée pour revenir en haut
+    for y in reversed(range(GRID_H)):
+        cycle.append((safe_col_for_return, y))
+
+    return cycle
+
+hamilton_cycle = generate_hamilton_cycle_left_to_right()
+cycle_index = {pos: i for i, pos in enumerate(hamilton_cycle)}
+
+def next_in_cycle(pos):
+    """Retourne la prochaine position sur le cycle Hamiltonien"""
+    i = cycle_index[pos]
+    return hamilton_cycle[(i + 1) % len(hamilton_cycle)]
+
+# -------------------------
+# IA OPTIMALE : HAMILTON + A*
+# -------------------------
+OPTIMAL_THRESHOLD = 35  # après avoir mangé 10 fruits, IA devient strictement optimale
+
+def move_snake():
+    global snake, fruits, score
+
+    head = snake[0]
+    body = set(snake)
+
+    # Vérifier si IA doit être strictement optimale
+    strict_optimal = score >= OPTIMAL_THRESHOLD
+
+    # Fonction interne : vérifie qu'un chemin est sûr
+    def safe_path(path):
+        temp_snake = snake.copy()
+        for p in path:
+            temp_snake.insert(0, p)
+            temp_snake.pop()
+        return True  # avec cycle Hamiltonien, ce chemin est sécurisé
+
+    best_path = None
+    if not strict_optimal:
+        # Avant seuil : choisir le fruit le plus proche atteignable avec A*
+        for f in fruits:
+            path = astar(head, f, body)
+            if path and safe_path(path):
+                if not best_path or len(path) < len(best_path):
+                    best_path = path
+
+    if best_path:
+        # Suivre le chemin vers le fruit
+        next_pos = best_path[0]
+    else:
+        # Après seuil ou aucun chemin sûr : suivre le cycle Hamiltonien strictement
+        next_pos = next_in_cycle(head)
+
+    # Appliquer le mouvement
+    snake.insert(0, next_pos)
+
+    # Vérifier si un fruit est mangé
+    if next_pos in fruits:
+        fruits.remove(next_pos)
+        score += 1
+        # remplacer pour garder 5 fruits
+        fruits.append(random_fruit())
+    else:
+        snake.pop()
+
+    # Collision (théorique impossible si Hamilton + vérif)
+    if not is_inside_map(next_pos) or next_pos in snake[1:]:
+        return False
+
+    return True
+
+# -------------------------
+# BOUCLE PRINCIPALE
+# -------------------------
+running = True
+while running:
+    speed = min(12 + score*0.8, 40)
+    clock.tick(speed)
+
+    for e in pygame.event.get():
+        if e.type == pygame.QUIT:
+            running = False
+
+    if not move_snake():
+        print("GAME OVER")
+        print("Score final :", score)
+        running = False
+
+    draw()
+
+pygame.quit()
