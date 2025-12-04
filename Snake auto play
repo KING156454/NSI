@@ -1,23 +1,4 @@
-    def mode_securite_absolu(self):
-        """Mode sécurité absolu - trouve N'IMPORTE quelle direction valide"""
-        tete = self.snake.corps[0]
-        directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
-        
-        # Essayer toutes les directions, même le demi-tour si nécessaire
-        for direction in directions:
-            nouvelle_pos = (tete[0] + direction[0], tete[1] + direction[1])
-            
-            # Vérifier seulement les collisions de base
-            if (0 <= nouvelle_pos[0] < LARGEUR_GRILLE and
-                0 <= nouvelle_pos[1] < HAUTEUR_GRILLE and
-                nouvelle_pos not in list(self.snake.corps)[:-1]):
-                
-                print(f"🆘 Mode sécurité absolu: direction {direction}")
-                self.snake.direction = direction
-                return
-        
-        # Si vraiment aucune direction n'est possible, le jeu va se terminer
-        print("💀 Aucune direction valide trouvée - collision imminente")import pygame
+import pygame
 import random
 from collections import deque
 
